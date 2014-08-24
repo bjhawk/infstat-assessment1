@@ -1,0 +1,28 @@
+---
+output: pdf_document
+---
+Simulation of the Exponential Distribution
+==========================================
+
+First, our data. We will be looking at 10,000 means of 40 randomly generated variables
+from an exponential distribution with a rate of .2:  
+
+```{r generate.data}
+lambda <- 0.2
+nosim <- 10000
+n <- 40
+
+data <- apply(matrix(rexp(n*nosim, lambda), nosim), 1, mean)
+```
+
+Now we will look at a frequency chart. 
+*NB* I'm going to include a few statistics all at once here and discuss them as the report progresses.
+
+```{r plot.data}
+# Plot our histogram and its density line.
+hist(data, prob=T, breaks=nosim/250)
+lines(density(data), lwd=2)
+
+#plot the mean, and plot the expected mean of this distribution
+abline(h=mean(data), lwd=2, col="blue")
+abline(v=1/lambda, lwd=2, lty="dotted", col="red")
